@@ -4,6 +4,8 @@
 CSprite::CSprite(SDL_Renderer* passed_renderer, std::string file_path, SDL_Rect src, SDL_Rect dest)
     : renderer{passed_renderer}, file_path{file_path}, src{src}, dest{dest}
 {
+    /** Texture for image will be created in the constructor
+     */
     image = IMG_LoadTexture(renderer, file_path.c_str());
 	if (image == NULL)
 		std::cout << "Couldn't load image " << file_path.c_str() << std::endl;
@@ -11,13 +13,24 @@ CSprite::CSprite(SDL_Renderer* passed_renderer, std::string file_path, SDL_Rect 
 
 
 CSprite::~CSprite(void)
-{ SDL_DestroyTexture(image); }
+{ 
+    /** Take care of memory leaks
+     */
+    SDL_DestroyTexture(image); 
+}
 
 void CSprite::draw()
-{ SDL_RenderCopy(renderer, image, &src, &dest); handle_motion(); }
+{ 
+    /** Draw image to renderer + call handle_motion
+     */
+    SDL_RenderCopy(renderer, image, &src, &dest); handle_motion(); 
+}
 
 void CSprite::do_tile_fill(int until_x, int until_y)
 {
+    /** Fills whole renderer (limits are until_x, until_y)
+     * with image. Useful for static backgrounds.
+     */
     for(int x = 0; x < until_x; x++)
     {
         for(int y = 0; y < until_y; y++)

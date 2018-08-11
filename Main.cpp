@@ -34,6 +34,21 @@ CMain::~CMain(void)
 {
 }
 
+void CMain::add_to_event_functions(Uint32 k, void* f){
+    /** Add f to event_functions at k. If event_functions.at(k) doesn't exist,
+     * create it
+     */
+    if (event_functions.find(k) != event_functions.end()) {
+        event_functions.at(k).push_back(f);
+    }
+    else {
+        std::list<void*> temp;
+        temp.push_back(f);
+
+        event_functions.at(k) = temp;
+    }
+}
+
 void CMain::manage_keys(SDL_Event* event)
 {
     switch (event->type)

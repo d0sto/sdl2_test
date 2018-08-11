@@ -15,7 +15,9 @@ class CMain
 public:
 	CMain(int passed_ScreenWidth, int passed_ScreenHeight);
 	~CMain(void);
+
 	void GameLoop();
+    void add_to_event_functions(Uint32, void*);
 
 private:
 	int ScreenWidth;
@@ -30,9 +32,8 @@ private:
 
 	SDL_Setup* sdl_setup;
 
-    // Get function pointers when passing SDL_Event.type
-    // Replacement for the big switch block
-    std::map< Uint32, std::list<void*> > event_functions;
+    std::map< Uint32, std::list<void*> > event_functions; //!< map used to associate SDL_Event.type with
+                                                          //!< std::list of functions which to call
 
     int move_x;
     int move_y;

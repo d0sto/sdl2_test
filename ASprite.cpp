@@ -9,11 +9,18 @@ ASprite::ASprite(SDL_Renderer* passed_renderer, std::string file_path, SDL_Rect 
         animation_mode{0}, timer{Timer()}
 
 {
+    /* \brief Only initializes Calass' variables
+     */
 }
 
 
 void ASprite::update_animation()
 {
+    /* \brief Makes sure src matches new animation frame after max_animation_delay
+     *  Delay between frames is max_animation_ticks
+     *
+     * Uses Timer instance to track delay between each animated frame.
+     */
     if(!timer.isStarted())
         timer.start();
     if(timer.isPaused())
@@ -27,20 +34,23 @@ void ASprite::update_animation()
         timer.stop();
         set_animation_src();
         current_animation_count++;
-        new_max_animation_ticks = timer.getTicks() + max_animation_ticks;
+        new_max_animation_ticks = timer.getTicks() + max_animation_ticks; ///< SDL_GetTicks() returns ticks since library init. new_max_animation_ticks must be updated.
     }
     timer.pause();
 }
 
 void ASprite::set_animation_src()
 {
-    //std::cout << "animation count " << current_animation_count << std::endl;
+    /* \brief Update src to point to next frame 
+     */
     src.x = current_animation_count * src.w;
     src.y = src.h * animation_mode;
 }
 
 void ASprite::handle_motion()
 {
+    /* \brief Makes sure object does not move out of the window
+     */
     
     if(dest.y > screenHeight)
         set_dest_y(0);
@@ -61,7 +71,11 @@ void ASprite::handle_motion()
 void ASprite::set_animation_mode(int mode) { if (animation_mode != mode) { animation_mode = mode; } }
 void ASprite::set_max_animation_ticks(int ticks) { max_animation_ticks = ticks; }
 int ASprite::get_max_animation_ticks() { return max_animation_ticks; }
-bool ASprite::do_animate() { return true; }
+bool ASprite::do_animate() {
+    /* \brief In case of some polymorphisrm: make sure this class supports animations
+     */
+    return true; 
+}
 
 void ASprite::setAtmAnimate(bool atm_animate) { this->atm_animate = atm_animate; }
 bool ASprite::getAtmAnimate() { return atm_animate; }

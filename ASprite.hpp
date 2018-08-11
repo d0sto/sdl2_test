@@ -20,7 +20,7 @@ public:
     bool getAtmAnimate();
 
 private:
-    bool atm_animate;
+    bool atm_animate; ///< Used to disable animation handling, e.g. if handle_motion is called from loop
 
     int &screenHeight;
     int &screenWidth;
