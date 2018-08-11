@@ -17,7 +17,8 @@ public:
 	~CMain(void);
 
 	void GameLoop();
-    void add_to_event_functions(Uint32, void*);
+    void add_to_event_functions(Uint32 k, void* f);
+    void remove_from_event_functions(Uint32 k, void* f);
 
 private:
 	int ScreenWidth;

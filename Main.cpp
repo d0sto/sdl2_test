@@ -48,6 +48,20 @@ void CMain::add_to_event_functions(Uint32 k, void* f){
         event_functions.at(k) = temp;
     }
 }
+void CMain::remove_from_event_functions(Uint32 k, void* f) {
+    /* \brief Remove f from event_functions.
+     * If it's not the only object in the std::list, remove it from the 
+     * corresponding list. Else delete map entry.
+     */
+    if (event_functions.find(k) != event_functions.end()) {
+        if(event_functions.at(k).size() > 1) {
+            event_functions.at(k).remove(f);
+        }
+        else {
+            event_functions.erase(k);
+        }
+    }
+}
 
 void CMain::manage_keys(SDL_Event* event)
 {
