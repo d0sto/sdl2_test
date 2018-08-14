@@ -1,5 +1,3 @@
-//Let's Make An RPG - Part 12 - FirstRPG.cpp - www.youtube.com/youkondziu
-
 #include "stdafx.hpp"
 #include "Main.hpp"
 

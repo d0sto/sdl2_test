@@ -24,9 +24,10 @@ CMain::CMain(int passed_ScreenWidth, int passed_ScreenHeight)
         SDL_Rect {0, 0, 27, 31}, SDL_Rect {0, 0, 36, 41}, 2, 50,
         ScreenWidth, ScreenHeight);
 
-    struct sprite_movement sBob { bob };
-    move_me.push_back(sBob);
-    hero = &move_me.at(0);
+    bob->set_add_y(-move_y);
+    std::cout << "test" << std::endl;
+    bob->setAtmAnimate(true);
+
 }
 
 
@@ -34,35 +35,35 @@ CMain::~CMain(void)
 {
 }
 
-void CMain::add_to_event_functions(Uint32 k, void* f){
-    /** Add f to event_functions at k. If event_functions.at(k) doesn't exist,
-     * create it
-     */
-    if (event_functions.find(k) != event_functions.end()) {
-        event_functions.at(k).push_back(f);
-    }
-    else {
-        std::list<void*> temp;
-        temp.push_back(f);
-
-        event_functions.at(k) = temp;
-    }
-}
-void CMain::remove_from_event_functions(Uint32 k, void* f) {
-    /* \brief Remove f from event_functions.
-     * If it's not the only object in the std::list, remove it from the 
-     * corresponding list. Else delete map entry.
-     */
-    if (event_functions.find(k) != event_functions.end()) {
-        if(event_functions.at(k).size() > 1) {
-            event_functions.at(k).remove(f);
-        }
-        else {
-            event_functions.erase(k);
-        }
-    }
-}
-
+//void CMain::add_to_event_functions(Uint32 k, void* f){
+//    /** Add f to event_functions at k. If event_functions.at(k) doesn't exist,
+//     * create it
+//     */
+//    if (event_functions.find(k) != event_functions.end()) {
+//        event_functions.at(k).push_back(f);
+//    }
+//    else {
+//        std::list<void*> temp;
+//        temp.push_back(f);
+//
+//        event_functions.at(k) = temp;
+//    }
+//}
+//void CMain::remove_from_event_functions(Uint32 k, void* f) {
+//    /* \brief Remove f from event_functions.
+//     * If it's not the only object in the std::list, remove it from the 
+//     * corresponding list. Else delete map entry.
+//     */
+//    if (event_functions.find(k) != event_functions.end()) {
+//        if(event_functions.at(k).size() > 1) {
+//            event_functions.at(k).remove(f);
+//        }
+//        else {
+//            event_functions.erase(k);
+//        }
+//    }
+//}
+//
 void CMain::manage_keys(SDL_Event* event)
 {
     switch (event->type)
@@ -78,28 +79,28 @@ void CMain::manage_keys(SDL_Event* event)
         {
             case SDLK_w:
                 std::cout << "w pressed" << std::endl;
-                hero->sprite->set_add_y(-move_y);
-                hero->sprite->setAtmAnimate(true);
+                bob->set_add_y(-move_y);
+                bob->setAtmAnimate(true);
                 break;
 
             case SDLK_a:
                 std::cout << "a pressed" << std::endl;
-                hero->sprite->set_add_x(-move_x);
-                hero->sprite->setAtmAnimate(true);
-                hero->sprite->set_animation_mode(1);
+                bob->set_add_x(-move_x);
+                bob->setAtmAnimate(true);
+                bob->set_animation_mode(1);
                 break;
 
             case SDLK_s:
                 std::cout << "s pressed" << std::endl;
-                hero->sprite->set_add_y(move_y);
-                hero->sprite->setAtmAnimate(true);
+                bob->set_add_y(move_y);
+                bob->setAtmAnimate(true);
                 break;
 
             case SDLK_d:
                 std::cout << "d pressed" << std::endl;
-                hero->sprite->set_add_x(move_x);
-                hero->sprite->setAtmAnimate(true);
-                hero->sprite->set_animation_mode(0);
+                bob->set_add_x(move_x);
+                bob->setAtmAnimate(true);
+                bob->set_animation_mode(0);
                 break;
 
             case SDLK_LSHIFT:
@@ -118,26 +119,26 @@ void CMain::manage_keys(SDL_Event* event)
         {
             case SDLK_w:
                 std::cout << "w released" << std::endl;
-                hero->sprite->set_add_y(0);
-                hero->sprite->setAtmAnimate(false);
+                bob->set_add_y(0);
+                bob->setAtmAnimate(false);
                 break;
 
             case SDLK_a:
                 std::cout << "a released" << std::endl;
-                hero->sprite->set_add_x(0);
-                hero->sprite->setAtmAnimate(false);
+                bob->set_add_x(0);
+                bob->setAtmAnimate(false);
                 break;
 
             case SDLK_s:
                 std::cout << "s released" << std::endl;
-                hero->sprite->set_add_y(0);
-                hero->sprite->setAtmAnimate(false);
+                bob->set_add_y(0);
+                bob->setAtmAnimate(false);
                 break;
 
             case SDLK_d:
                 std::cout << "d released" << std::endl;
-                hero->sprite->set_add_x(0);
-                hero->sprite->setAtmAnimate(false);
+                bob->set_add_x(0);
+                bob->setAtmAnimate(false);
                 break;
 
             case SDLK_LSHIFT:
@@ -185,7 +186,6 @@ void CMain::GameLoop(void)
 		bob->draw();
 
 		sdl_setup->End();
-
 
         fpscap.calcCorrectFps();
         fpscap.frameEarly();

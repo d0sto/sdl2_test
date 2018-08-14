@@ -33,8 +33,8 @@ private:
 
 	SDL_Setup* sdl_setup;
 
-    std::map< Uint32, std::list<void*> > event_functions; //!< map used to associate SDL_Event.type with
-                                                          //!< std::list of functions which to call
+    /* std::map< Uint32, std::list<void*> > event_functions; //!< map used to associate SDL_Event.type with */
+    /*                                                       //!< std::list of functions which to call */
 
     int move_x;
     int move_y;
@@ -43,7 +43,6 @@ private:
     {
         CSprite* sprite;
     };
-    std::vector<sprite_movement> move_me;
     struct sprite_movement* hero;
     void move_all();
 

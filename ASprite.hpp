@@ -1,8 +1,12 @@
-#pragma once
-#include "CSprite.hpp"
-#include "Timer.hpp"
+#ifndef ASPRITE_HPP
+#define ASPRITE_HPP
+
 #include <SDL2/SDL.h>
 #include <iostream>
+
+#include "CSprite.hpp"
+#include "Timer.hpp"
+
 
 class ASprite : public CSprite {
 
@@ -11,13 +15,19 @@ public:
             int max_animation_count, int max_animation_ticks, 
             int &screenWidth, int &screenHeight);
 
-    bool do_animate();
-    void update_animation();
-    void set_animation_mode(int mode);
+    void updateState();
+
     void handle_motion();
+    void update_animation();
+    bool do_animate();
+
+    void set_animation_mode(int mode);
 
     void setAtmAnimate(bool animate);
     bool getAtmAnimate();
+
+protected:
+    
 
 private:
     bool atm_animate; ///< Used to disable animation handling, e.g. if handle_motion is called from loop
@@ -38,3 +48,4 @@ private:
 
     Timer timer;
 };
+#endif

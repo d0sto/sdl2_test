@@ -9,10 +9,11 @@ ASprite::ASprite(SDL_Renderer* passed_renderer, std::string file_path, SDL_Rect 
         animation_mode{0}, timer{Timer()}
 
 {
-    /* \brief Only initializes Calass' variables
+    /* \brief Only initializes Class' variables
      */
 }
 
+//======================================================= Animation things
 
 void ASprite::update_animation()
 {

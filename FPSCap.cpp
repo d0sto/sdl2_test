@@ -18,7 +18,6 @@ void FpsCap::calcCorrectFps()
 	avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
 	if(avgFPS > 2000000)
 		avgFPS = 0;
-
 }
 
 void FpsCap::frameEarly()

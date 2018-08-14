@@ -70,3 +70,8 @@ void CSprite::setAtmAnimate(bool) {;}
 bool CSprite::getAtmAnimate() { return true; }
 
 void CSprite::handle_motion() {;}
+
+void CSprite::w() { }
+void CSprite::a() { }
+void CSprite::s() { }
+void CSprite::d() { }

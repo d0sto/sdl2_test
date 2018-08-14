@@ -27,6 +27,11 @@ public:
     void apply_add_x();
     void apply_add_y();
 
+    virtual void w();
+    virtual void a();
+    virtual void s();
+    virtual void d();
+
     SDL_Renderer* get_renderer();
 
     virtual bool do_animate();
