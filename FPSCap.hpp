@@ -22,7 +22,7 @@ class FpsCap {
 	void newFrame();
 	void calcCorrectFps();
 	void frameEarly();
-	void showFPS();
+	int getAvgFPS();
 };
 
 #endif

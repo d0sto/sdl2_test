@@ -3,8 +3,9 @@
 ASprite::ASprite(SDL_Renderer* passed_renderer, std::string file_path, SDL_Rect src, SDL_Rect dest,
         int max_animation_count, int max_animation_ticks,
         int &screenWidth, int &screenHeight)
-        : CSprite(passed_renderer, file_path, src, dest), screenHeight{screenHeight}, screenWidth{screenWidth},
-        max_animation_count{max_animation_count},
+        : CSprite(passed_renderer, file_path, src, dest), screenHeight{screenHeight},
+        screenWidth{screenWidth},
+        atm_animate{0}, max_animation_count{max_animation_count},
         max_animation_ticks{max_animation_ticks}, current_animation_count{0}, 
         animation_mode{0}, timer{Timer()}
 
@@ -52,6 +53,10 @@ void ASprite::handle_motion()
 {
     /* \brief Makes sure object does not move out of the window
      */
+
+    std::cout << "in handle_motion\n";
+    std::cout << "Y : " << dest.y << "\n";
+    std::cout << "X : " << dest.x << std::endl;
     
     if(dest.y > screenHeight)
         set_dest_y(0);
@@ -64,8 +69,10 @@ void ASprite::handle_motion()
         set_dest_x(screenWidth);
 
     apply_add_x_y();
-    if(atm_animate)
+    std::cout << "Animation is : " << atm_animate << std::endl;
+    if(atm_animate) {
         update_animation();
+    }
 }
 
 

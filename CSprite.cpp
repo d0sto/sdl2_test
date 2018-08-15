@@ -66,7 +66,7 @@ void CSprite::update_animation() {;}
 void CSprite::set_animation_mode(int h) {;}
 bool CSprite::do_animate() { return false; }
 
-void CSprite::setAtmAnimate(bool) {;}
+void CSprite::setAtmAnimate(bool) {}
 bool CSprite::getAtmAnimate() { return true; }
 
 void CSprite::handle_motion() {;}

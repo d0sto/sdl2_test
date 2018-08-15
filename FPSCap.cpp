@@ -30,7 +30,7 @@ void FpsCap::frameEarly()
 		SDL_Delay(SCREEN_TICKS_PER_FRAME - frameTicks);
 }
 
-void FpsCap::showFPS()
+int FpsCap::getAvgFPS()
 {
-	//draw.setWindowTitle(std::to_string(avgFPS));
+    return avgFPS;
 }

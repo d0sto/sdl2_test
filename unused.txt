@@ -1,0 +1,132 @@
+void CMain::add_to_event_functions(Uint32 k, void* f){
+    /** Add f to event_functions at k. If event_functions.at(k) doesn't exist,
+     * create it
+     */
+    if (event_functions.find(k) != event_functions.end()) {
+        event_functions.at(k).push_back(f);
+    }
+    else {
+        std::list<void*> temp;
+        temp.push_back(f);
+
+        event_functions.at(k) = temp;
+    }
+}
+void CMain::remove_from_event_functions(Uint32 k, void* f) {
+    /* \brief Remove f from event_functions.
+     * If it's not the only object in the std::list, remove it from the 
+     * corresponding list. Else delete map entry.
+     */
+    if (event_functions.find(k) != event_functions.end()) {
+        if(event_functions.at(k).size() > 1) {
+            event_functions.at(k).remove(f);
+        }
+        else {
+            event_functions.erase(k);
+        }
+    }
+}
+
+void CMain::manage_keys(SDL_Event* event)
+{
+    switch (event->type)
+    {
+
+    case SDL_QUIT:
+        std::cout << "Received quit event. Exiting..." << std::endl;
+        quit = true;
+        break;
+
+    case SDL_KEYDOWN:
+        switch (event->key.keysym.sym)
+        {
+            case SDLK_w:
+                std::cout << "w pressed" << std::endl;
+                bob->set_add_y(-move_y);
+                bob->setAtmAnimate(true);
+                break;
+
+            case SDLK_a:
+                std::cout << "a pressed" << std::endl;
+                bob->set_add_x(-move_x);
+                bob->setAtmAnimate(true);
+                bob->set_animation_mode(1);
+                break;
+
+            case SDLK_s:
+                std::cout << "s pressed" << std::endl;
+                bob->set_add_y(move_y);
+                bob->setAtmAnimate(true);
+                break;
+
+            case SDLK_d:
+                std::cout << "d pressed" << std::endl;
+                bob->set_add_x(move_x);
+                bob->setAtmAnimate(true);
+                bob->set_animation_mode(0);
+                break;
+
+            case SDLK_LSHIFT:
+                move_x = 2;
+                move_y = 2;
+                break;
+
+            default:
+                break;
+
+        }
+        break;
+
+    case SDL_KEYUP:
+        switch (event->key.keysym.sym)
+        {
+            case SDLK_w:
+                std::cout << "w released" << std::endl;
+                bob->set_add_y(0);
+                bob->setAtmAnimate(false);
+                break;
+
+            case SDLK_a:
+                std::cout << "a released" << std::endl;
+                bob->set_add_x(0);
+                bob->setAtmAnimate(false);
+                break;
+
+            case SDLK_s:
+                std::cout << "s released" << std::endl;
+                bob->set_add_y(0);
+                bob->setAtmAnimate(false);
+                break;
+
+            case SDLK_d:
+                std::cout << "d released" << std::endl;
+                bob->set_add_x(0);
+                bob->setAtmAnimate(false);
+                break;
+
+            case SDLK_LSHIFT:
+                move_x = 5;
+                move_y = 5;
+                break;
+
+            default:
+                break;
+        }
+        break;
+
+    case SDL_WINDOWEVENT:
+        switch(event->window.event)
+        {
+            std::cout << "Window size changed" << std::endl;
+            case SDL_WINDOWEVENT_SIZE_CHANGED:
+                SDL_GetWindowSize(sdl_setup->GetWindow(), &ScreenWidth, &ScreenHeight);
+                break;
+
+            default:
+                break;
+        }
+
+    default:
+        break;
+    }
+}

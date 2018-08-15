@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MAIN_HPP
+#define MAIN_HPP
+
 #include <map>
 #include <list>
 
@@ -7,6 +9,7 @@
 #include "CSprite.hpp"
 #include "ASprite.hpp"
 #include "BSprite.hpp"
+#include "ASpriteState.hpp"
 
 #include "FPSCap.hpp"
 
@@ -21,6 +24,8 @@ public:
     void remove_from_event_functions(Uint32 k, void* f);
 
 private:
+    ASpriteState stateMachine;
+
 	int ScreenWidth;
 	int ScreenHeight;
 
@@ -33,18 +38,8 @@ private:
 
 	SDL_Setup* sdl_setup;
 
-    /* std::map< Uint32, std::list<void*> > event_functions; //!< map used to associate SDL_Event.type with */
-    /*                                                       //!< std::list of functions which to call */
-
     int move_x;
     int move_y;
-
-    struct sprite_movement
-    {
-        CSprite* sprite;
-    };
-    struct sprite_movement* hero;
-    void move_all();
-
-    void manage_keys(SDL_Event* event);
 };
+
+#endif
