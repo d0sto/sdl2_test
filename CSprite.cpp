@@ -23,7 +23,7 @@ void CSprite::draw()
 { 
     /** Draw image to renderer + call handle_motion
      */
-    SDL_RenderCopy(renderer, image, &src, &dest); handle_motion(); 
+    SDL_RenderCopy(renderer, image, &src, &dest);
 }
 
 void CSprite::do_tile_fill(int until_x, int until_y)
@@ -40,6 +40,8 @@ void CSprite::do_tile_fill(int until_x, int until_y)
         }
     }
 }
+
+SDL_Rect* CSprite::getSrc() { return &src; }
 
 SDL_Rect* CSprite::get_dest() { return &dest; }
 int CSprite::get_x() { return dest.x; }
@@ -61,17 +63,3 @@ void CSprite::set_add_x(int x) { this->x = x; }
 void CSprite::set_add_y(int y) { this->y = y; }
 
 SDL_Renderer* CSprite::get_renderer() { return renderer; }
-
-void CSprite::update_animation() {;}
-void CSprite::set_animation_mode(int h) {;}
-bool CSprite::do_animate() { return false; }
-
-void CSprite::setAtmAnimate(bool) {}
-bool CSprite::getAtmAnimate() { return true; }
-
-void CSprite::handle_motion() {;}
-
-void CSprite::w() { }
-void CSprite::a() { }
-void CSprite::s() { }
-void CSprite::d() { }

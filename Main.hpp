@@ -6,10 +6,10 @@
 
 #include "SDL_Setup.hpp"
 
-#include "CSprite.hpp"
 #include "ASprite.hpp"
+#include "CSprite.hpp"
 #include "BSprite.hpp"
-#include "ASpriteState.hpp"
+#include "ObjectState.hpp"
 
 #include "FPSCap.hpp"
 
@@ -24,7 +24,7 @@ public:
     void remove_from_event_functions(Uint32 k, void* f);
 
 private:
-    ASpriteState stateMachine;
+    ObjectState stateMachine;
 
 	int ScreenWidth;
 	int ScreenHeight;
@@ -37,9 +37,6 @@ private:
 	CSprite* bob;
 
 	SDL_Setup* sdl_setup;
-
-    int move_x;
-    int move_y;
 };
 
 #endif

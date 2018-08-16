@@ -1,48 +1,27 @@
 #ifndef ASPRITE_HPP
 #define ASPRITE_HPP
 
-#include <SDL2/SDL.h>
-#include <iostream>
-
 #include "CSprite.hpp"
-#include "Timer.hpp"
+#include "Animation.hpp"
 
+class ASprite {
+    public:
+        ASprite(CSprite *cs);
+        ASprite(CSprite *cs, SDL_Rect*, int screenHeight,
+                int screenWidth, bool currentlyAnimating, int maxAnimationDuration,
+                int maxAnimationImg);
 
-class ASprite : public CSprite {
+        void handleMovement();
 
-public:
-	ASprite(SDL_Renderer* passed_renderer, std::string file_path, SDL_Rect src, SDL_Rect dest,
-            int max_animation_count, int max_animation_ticks, 
-            int &screenWidth, int &screenHeight);
+        Animation* getAni();
+        CSprite* getCs();
 
-    void updateState();
+    private:
+        int screenHeight;
+        int screenWidth;
 
-    void handle_motion();
-    void update_animation();
-    bool do_animate();
-
-    void set_animation_mode(int mode);
-
-    void setAtmAnimate(bool animate);
-    bool getAtmAnimate();
-
-private:
-    bool atm_animate; ///< Used to disable animation handling, e.g. if handle_motion is called from loop
-
-    int &screenHeight;
-    int &screenWidth;
-
-    int max_animation_count;
-    int max_animation_ticks;
-    int current_animation_count;
-    int new_max_animation_ticks;
-    int animation_mode;
-
-    void set_max_animation_ticks(int ticks);
-    int get_max_animation_ticks();
-    void set_animation_src();
-
-
-    Timer timer;
+        Animation *ani;
+        CSprite *cs;
 };
+
 #endif

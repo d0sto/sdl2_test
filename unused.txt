@@ -130,3 +130,72 @@ void CMain::manage_keys(SDL_Event* event)
         break;
     }
 }
+
+
+#include "ASprite.hpp"
+
+ASprite::ASprite(SDL_Renderer* passed_renderer, std::string file_path, SDL_Rect src, SDL_Rect dest,
+        int max_animation_count, int max_animation_ticks,
+        int &screenWidth, int &screenHeight)
+        : CSprite(passed_renderer, file_path, src, dest), screenHeight{screenHeight},
+        screenWidth{screenWidth}
+{
+    /* \brief Only initializes Class' variables
+     */
+}
+
+void ASprite::handle_motion()
+{
+    /* \brief Makes sure object does not move out of the window
+     */
+
+    std::cout << "in handle_motion\n";
+    std::cout << "Y : " << dest.y << "\n";
+    std::cout << "X : " << dest.x << std::endl;
+    
+    if(dest.y > screenHeight)
+        set_dest_y(0);
+    else if(dest.y < 0)
+        set_dest_y(screenHeight);
+
+    if(dest.x > screenWidth)
+        set_dest_x(0);
+    else if(dest.x < 0)
+        set_dest_x(screenWidth);
+
+    apply_add_x_y();
+    std::cout << "Animation is : " << atm_animate << std::endl;
+    if(atm_animate) {
+        update_animation();
+    }
+}
+
+#ifndef ASPRITE_HPP
+#define ASPRITE_HPP
+
+#include <SDL2/SDL.h>
+#include <iostream>
+
+#include "CSprite.hpp"
+#include "Timer.hpp"
+
+
+class ASprite : public CSprite {
+
+public:
+	ASprite(SDL_Renderer* passed_renderer, std::string file_path, SDL_Rect src, SDL_Rect dest,
+            int max_animation_count, int max_animation_ticks, 
+            int &screenWidth, int &screenHeight);
+
+    void updateState();
+
+    void handle_motion();
+    void update_animation();
+
+private:
+    int &screenHeight;
+    int &screenWidth;
+
+    Timer timer;
+};
+#

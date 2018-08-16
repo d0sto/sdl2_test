@@ -19,6 +19,8 @@ class StateMachine {
         STILL_DOWN,
         STILL_LEFT,
         STILL_RIGHT,
+
+        NOTHING
     };
 
     State activeState;
@@ -28,7 +30,7 @@ class StateMachine {
 
     virtual void runState() = 0;
 
-    //< May be used lates when things get more complex
-    std::map< State, std::vector<State> > possibleTransitions;
+    //< May be used lates when things get more complex // TODO
+    //std::map< State, std::vector<State> > possibleTransitions;
 };
 #endif

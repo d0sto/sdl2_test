@@ -7,9 +7,6 @@ CMain::CMain(int passed_ScreenWidth, int passed_ScreenHeight)
 	ScreenHeight = passed_ScreenHeight;
 	quit = false;
 
-    move_x = 5;
-    move_y = 5;
-
     fpscap = FpsCap();
     fpscap.start();
 
@@ -20,11 +17,14 @@ CMain::CMain(int passed_ScreenWidth, int passed_ScreenHeight)
                 sdl_setup->GetWindowSurface(), sdl_setup->GetRenderer());
 
     //150 is good max_animation_ticks
-    bob = new ASprite(sdl_setup->GetRenderer(),"assets/sheet_hero_walk_f.png",
-        SDL_Rect {0, 0, 27, 31}, SDL_Rect {0, 0, 36, 41}, 2, 50,
-        ScreenWidth, ScreenHeight);
+    bob = new CSprite(sdl_setup->GetRenderer(),"assets/sheet_hero_walk_f.png",
+        SDL_Rect {0, 0, 27, 31}, SDL_Rect {0, 0, 36, 41});
 
-    stateMachine = ASpriteState(std::list<CSprite*> { bob });
+    ASprite *temp = new ASprite(bob, bob->getSrc(), ScreenHeight, ScreenWidth, false, 150, 2);
+
+    std::list<ASprite*> test {temp};
+
+    stateMachine = ObjectState(test);
 }
 
 
@@ -44,11 +44,10 @@ void CMain::GameLoop(void)
 
         while(sdl_setup->poll_event()) {
             stateMachine.handleInput(temp_event);
-            stateMachine.runState(); 
         }
+        stateMachine.runState(); 
 
         SDL_RenderCopy(sdl_setup->GetRenderer(), grass->get_texture(), NULL, NULL);
-        bob->handle_motion();
 		bob->draw();
 
 		sdl_setup->End();
